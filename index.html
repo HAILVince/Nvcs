@@ -3,189 +3,372 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="NVCSE csapatoldal – események, játékoskereső és elérhetőségek.">
+<meta name="theme-color" content="#0a0f1c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="color-scheme" content="light dark">
-<title>NVCSE · Csapat Események</title>
+
+<!-- ============ SEO ============ -->
+<title>NVCSE · Csapatportál – Események, Játékosok, Elérhetőségek</title>
+<meta name="description" content="Az NVCSE hivatalos csapatportálja: közelgő események, játékoskereső és elérhetőségek egy helyen.">
+<meta name="author" content="NVCSE">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://nvcse.hu/">
+
+<!-- ============ Open Graph ============ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NVCSE">
+<meta property="og:locale" content="hu_HU">
+<meta property="og:url" content="https://nvcse.hu/">
+<meta property="og:title" content="NVCSE · Csapatportál – Események, Játékosok, Elérhetőségek">
+<meta property="og:description" content="Közelgő események, játékoskereső és elérhetőségek – mindez egy letisztult felületen.">
+<meta property="og:image" content="">
+<meta property="og:image:url" content="">
+<meta property="og:image:secure_url" content="https://nvcse.hu/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="NVCSE csapatportál – események, játékosok és elérhetőségek">
+
+<!-- ============ Twitter / X ============ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NVCSE · Csapatportál">
+<meta name="twitter:description" content="Közelgő események, játékoskereső és elérhetőségek – mindez egy letisztult felületen.">
+<meta name="twitter:image" content="og-image.jpg">
+<meta name="twitter:image:alt" content="NVCSE csapatportál">
+
+<!-- ============ Favicon (inline SVG) ============ -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Ctext x='16' y='22' font-family='Segoe UI,Arial' font-size='16' font-weight='700' fill='white' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E">
+
+<!-- ============ Font ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-    /* ---------- Design tokenek ---------- */
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
     :root {
         --bg:            #eef2f8;
-        --bg-glow-1:     rgba(59, 130, 246, .18);
-        --bg-glow-2:     rgba(99, 102, 241, .14);
+        --bg-glow-1:     rgba(59, 130, 246, .20);
+        --bg-glow-2:     rgba(99, 102, 241, .16);
 
         --surface:       #ffffff;
         --surface-2:     #f8fafc;
         --surface-3:     #f1f5f9;
-        --border:        #e3e9f2;
+        --border:        #e4e9f2;
+        --border-strong: #d5dce8;
 
-        --text:          #0f172a;
+        --text:          #0b1220;
+        --text-2:        #334155;
         --text-muted:    #64748b;
+        --text-faint:    #94a3b8;
 
         --primary:       #2563eb;
         --primary-2:     #3b82f6;
+        --primary-3:     #60a5fa;
         --primary-soft:  rgba(37, 99, 235, .09);
 
+        --success:       #059669;
+        --success-soft:  rgba(5, 150, 105, .10);
+
         --warn:          #b45309;
-        --warn-soft:     #fffbeb;
-        --warn-border:   #fde68a;
+        --warn-soft:     rgba(180, 83, 9, .08);
+        --warn-border:   rgba(180, 83, 9, .22);
 
         --neutral:       #64748b;
-        --neutral-soft:  #f1f5f9;
-        --neutral-border:#e2e8f0;
+        --neutral-soft:  rgba(100, 116, 139, .10);
+        --neutral-border:rgba(100, 116, 139, .22);
 
-        --shadow:        0 1px 2px rgba(15, 23, 42, .04),
-                         0 18px 40px -16px rgba(15, 23, 42, .22);
-        --shadow-hover:  0 14px 30px -18px rgba(15, 23, 42, .55);
+        --shadow-xs:     0 1px 2px rgba(15, 23, 42, .05);
+        --shadow-sm:     0 1px 3px rgba(15, 23, 42, .06), 0 6px 16px -8px rgba(15, 23, 42, .18);
+        --shadow-md:     0 2px 6px rgba(15, 23, 42, .05), 0 18px 40px -16px rgba(15, 23, 42, .25);
+        --shadow-lg:     0 4px 12px rgba(15, 23, 42, .06), 0 32px 64px -24px rgba(15, 23, 42, .35);
+        --shadow-focus:  0 0 0 4px rgba(37, 99, 235, .18);
 
-        --radius-lg: 20px;
+        --radius-xl: 24px;
+        --radius-lg: 18px;
         --radius-md: 14px;
-        --radius-sm: 12px;
+        --radius-sm: 10px;
         --radius-full: 999px;
+
+        --ease: cubic-bezier(.22, 1, .36, 1);
     }
 
     @media (prefers-color-scheme: dark) {
         :root {
-            --bg:            #0a0f1c;
-            --bg-glow-1:     rgba(37, 99, 235, .22);
-            --bg-glow-2:     rgba(99, 102, 241, .16);
+            --bg:            #070b14;
+            --bg-glow-1:     rgba(37, 99, 235, .28);
+            --bg-glow-2:     rgba(99, 102, 241, .20);
 
-            --surface:       #0e1626;
-            --surface-2:     #131f36;
-            --surface-3:     #1a2743;
-            --border:        #1e2a44;
+            --surface:       #0d1424;
+            --surface-2:     #111a2e;
+            --surface-3:     #17223b;
+            --border:        #1c2a45;
+            --border-strong: #263853;
 
-            --text:          #e8eefc;
-            --text-muted:    #93a2bd;
+            --text:          #edf2fc;
+            --text-2:        #c3cee0;
+            --text-muted:    #8b9ab5;
+            --text-faint:    #5e6d87;
 
             --primary:       #3b82f6;
             --primary-2:     #60a5fa;
-            --primary-soft:  rgba(59, 130, 246, .16);
+            --primary-3:     #93c5fd;
+            --primary-soft:  rgba(59, 130, 246, .14);
+
+            --success:       #34d399;
+            --success-soft:  rgba(52, 211, 153, .12);
 
             --warn:          #fbbf24;
-            --warn-soft:     rgba(251, 191, 36, .12);
-            --warn-border:   rgba(251, 191, 36, .30);
+            --warn-soft:     rgba(251, 191, 36, .10);
+            --warn-border:   rgba(251, 191, 36, .26);
 
             --neutral:       #94a3b8;
-            --neutral-soft:  rgba(148, 163, 184, .12);
-            --neutral-border:rgba(148, 163, 184, .25);
+            --neutral-soft:  rgba(148, 163, 184, .10);
+            --neutral-border:rgba(148, 163, 184, .22);
 
-            --shadow:        0 1px 2px rgba(0, 0, 0, .5),
-                             0 18px 40px -20px rgba(0, 0, 0, .9);
-            --shadow-hover:  0 14px 30px -18px rgba(0, 0, 0, .95);
+            --shadow-xs:     0 1px 2px rgba(0, 0, 0, .5);
+            --shadow-sm:     0 1px 3px rgba(0, 0, 0, .55), 0 6px 16px -8px rgba(0, 0, 0, .8);
+            --shadow-md:     0 2px 6px rgba(0, 0, 0, .5), 0 18px 40px -16px rgba(0, 0, 0, .9);
+            --shadow-lg:     0 4px 12px rgba(0, 0, 0, .55), 0 32px 64px -24px rgba(0, 0, 0, 1);
         }
     }
 
-    /* ---------- Alap ---------- */
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
         margin: 0;
         min-height: 100dvh;
         display: grid;
         place-items: start center;
-        padding: 24px 16px 48px;
-        font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        padding: 32px 16px 64px;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
         font-size: 16px;
-        line-height: 1.55;
+        line-height: 1.6;
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
         color: var(--text);
         background:
-            radial-gradient(1100px 550px at 10% -10%, var(--bg-glow-1), transparent 60%),
-            radial-gradient(900px 500px at 110% 115%, var(--bg-glow-2), transparent 55%),
+            radial-gradient(1200px 600px at 8% -12%, var(--bg-glow-1), transparent 62%),
+            radial-gradient(1000px 520px at 108% 118%, var(--bg-glow-2), transparent 58%),
             var(--bg);
         -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
     }
 
-    /* ---------- Panel ---------- */
+    img, svg { display: block; max-width: 100%; }
+    button, input { font: inherit; color: inherit; }
+
+    ::selection { background: var(--primary); color: #fff; }
+
+    /* ============================================================
+       PANEL
+       ============================================================ */
     .panel {
         width: 100%;
-        max-width: 720px;
+        max-width: 780px;
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
         overflow: hidden;
-        animation: rise .45s cubic-bezier(.22, 1, .36, 1) both;
+        animation: rise .6s var(--ease) both;
     }
 
     @keyframes rise {
-        from { opacity: 0; transform: translateY(14px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(18px) scale(.985); }
+        to   { opacity: 1; transform: none; }
     }
 
-    /* ---------- Fejléc ---------- */
-    .panel__header {
+    /* ============================================================
+       HERO / HEADER
+       ============================================================ */
+    .hero {
+        position: relative;
+        padding: 30px 32px 26px;
+        background:
+            radial-gradient(600px 200px at 0% 0%, var(--primary-soft), transparent 70%),
+            linear-gradient(180deg, var(--surface-2), var(--surface));
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(to right, color-mix(in srgb, var(--text) 4%, transparent) 1px, transparent 1px),
+            linear-gradient(to bottom, color-mix(in srgb, var(--text) 4%, transparent) 1px, transparent 1px);
+        background-size: 34px 34px;
+        mask-image: radial-gradient(520px 220px at 90% 0%, #000, transparent 75%);
+        -webkit-mask-image: radial-gradient(520px 220px at 90% 0%, #000, transparent 75%);
+        pointer-events: none;
+        opacity: .8;
+    }
+
+    .hero__top {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 16px;
-        padding: 26px 28px;
-        background: linear-gradient(180deg, var(--surface-2), var(--surface));
-        border-bottom: 1px solid var(--border);
+        flex-wrap: wrap;
     }
 
-    .brand {
-        flex: 0 0 auto;
+    .logo {
+        flex: none;
         display: grid;
         place-items: center;
-        width: 48px;
-        height: 48px;
-        border-radius: var(--radius-md);
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        font-size: 1.15rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
         color: #fff;
-        background: linear-gradient(135deg, var(--primary-2), var(--primary));
-        box-shadow: 0 10px 22px -10px rgba(37, 99, 235, .85);
+        background: linear-gradient(135deg, var(--primary-3), var(--primary) 55%, #1d4ed8);
+        box-shadow:
+            0 12px 26px -10px rgba(37, 99, 235, .9),
+            inset 0 1px 0 rgba(255, 255, 255, .35);
     }
 
-    .panel__heading { min-width: 0; }
+    .hero__heading { min-width: 0; flex: 1 1 auto; }
 
-    .panel__title {
+    .hero__eyebrow {
         margin: 0;
-        font-size: clamp(1.2rem, 1rem + 0.9vw, 1.45rem);
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: var(--primary);
+    }
+
+    .hero__title {
+        margin: 3px 0 0;
+        font-size: clamp(1.35rem, 1.05rem + 1.1vw, 1.7rem);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.15;
+    }
+
+    .hero__subtitle {
+        margin: 6px 0 0;
+        font-size: .875rem;
+        color: var(--text-muted);
+        max-width: 46ch;
+    }
+
+    /* Statisztika sáv */
+    .stats {
+        position: relative;
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+        flex-wrap: wrap;
+    }
+
+    .stat {
+        flex: 1 1 120px;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 12px 14px;
+        border-radius: var(--radius-md);
+        background: color-mix(in srgb, var(--surface) 70%, transparent);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: transform .25s var(--ease), border-color .25s ease;
+    }
+
+    .stat:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+
+    .stat__icon {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        color: var(--primary);
+        background: var(--primary-soft);
+    }
+
+    .stat__value {
+        font-size: 1rem;
         font-weight: 700;
         letter-spacing: -0.02em;
-        line-height: 1.2;
+        line-height: 1.1;
     }
 
-    .panel__subtitle {
-        margin: 4px 0 0;
-        font-size: 0.875rem;
+    .stat__label {
+        font-size: .72rem;
+        font-weight: 500;
         color: var(--text-muted);
+        letter-spacing: .01em;
     }
 
-    /* ---------- Szekciók ---------- */
+    /* ============================================================
+       SECTION
+       ============================================================ */
     .section {
-        padding: 22px 24px;
+        padding: 26px 32px;
         border-bottom: 1px solid var(--border);
+        scroll-margin-top: 20px;
     }
 
     .section:last-of-type { border-bottom: none; }
 
     .section__head {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 16px;
+        gap: 14px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
     }
 
     .section__title {
         margin: 0;
-        font-size: 1.05rem;
-        font-weight: 700;
-        letter-spacing: -0.01em;
         display: flex;
         align-items: center;
-        gap: 9px;
+        gap: 10px;
+        font-size: 1.0625rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
     }
 
-    .section__title svg { color: var(--primary); flex: none; }
+    .section__title .icon {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 9px;
+        color: var(--primary);
+        background: var(--primary-soft);
+    }
 
     .section__hint {
-        font-size: 0.78rem;
+        font-size: .75rem;
+        font-weight: 600;
+        letter-spacing: .02em;
         color: var(--text-muted);
-        font-weight: 500;
+        padding: 4px 10px;
+        border-radius: var(--radius-full);
+        background: var(--surface-3);
+        border: 1px solid var(--border);
     }
 
-    /* ---------- Események ---------- */
+    /* ============================================================
+       ESEMÉNYEK
+       ============================================================ */
     .events {
         list-style: none;
         margin: 0;
@@ -195,24 +378,41 @@
     }
 
     .event {
+        position: relative;
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        gap: 14px;
-        padding: 15px 16px;
+        gap: 16px;
+        padding: 16px 18px;
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         background: var(--surface-2);
-        transition: transform .22s ease, box-shadow .22s ease,
-                    border-color .22s ease, background-color .22s ease;
+        overflow: hidden;
+        transition:
+            transform .28s var(--ease),
+            box-shadow .28s var(--ease),
+            border-color .28s ease,
+            background-color .28s ease;
+    }
+
+    .event::before {
+        content: "";
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: var(--accent);
+        opacity: .9;
+        transition: width .28s var(--ease);
     }
 
     .event:hover {
         transform: translateY(-2px);
         background: var(--surface);
         border-color: var(--accent-border);
-        box-shadow: var(--shadow-hover);
+        box-shadow: var(--shadow-sm);
     }
+
+    .event:hover::before { width: 5px; }
 
     .event--pending     { --accent: var(--warn);    --accent-soft: var(--warn-soft);    --accent-border: var(--warn-border); }
     .event--unavailable { --accent: var(--neutral); --accent-soft: var(--neutral-soft); --accent-border: var(--neutral-border); }
@@ -220,24 +420,24 @@
     .event__icon {
         display: grid;
         place-items: center;
-        width: 40px;
-        height: 40px;
-        border-radius: var(--radius-sm);
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
         color: var(--accent);
         background: var(--accent-soft);
         border: 1px solid var(--accent-border);
-        transition: transform .22s ease;
+        transition: transform .28s var(--ease);
     }
 
-    .event:hover .event__icon { transform: scale(1.06); }
+    .event:hover .event__icon { transform: scale(1.07) rotate(-2deg); }
 
     .event__body { min-width: 0; }
 
     .event__title {
         margin: 0;
-        font-size: .95rem;
-        font-weight: 600;
-        letter-spacing: -0.01em;
+        font-size: .9375rem;
+        font-weight: 650;
+        letter-spacing: -0.015em;
         line-height: 1.3;
     }
 
@@ -253,8 +453,9 @@
         gap: 7px;
         padding: 5px 12px;
         border-radius: var(--radius-full);
-        font-size: .75rem;
-        font-weight: 600;
+        font-size: .72rem;
+        font-weight: 650;
+        letter-spacing: .01em;
         white-space: nowrap;
         color: var(--accent);
         background: var(--accent-soft);
@@ -267,51 +468,89 @@
         height: 6px;
         border-radius: 50%;
         background: currentColor;
-        box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 20%, transparent);
+        box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
     }
 
     .event--pending .badge::before { animation: pulse 2.4s ease-in-out infinite; }
 
     @keyframes pulse {
         0%, 100% { opacity: 1;   transform: scale(1); }
-        50%      { opacity: .45; transform: scale(.8); }
+        50%      { opacity: .4;  transform: scale(.75); }
     }
 
-    /* ---------- Kereső ---------- */
+    /* ============================================================
+       KERESŐ
+       ============================================================ */
+    .toolbar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+    }
+
     .search {
         position: relative;
-        margin-bottom: 14px;
+        flex: 1 1 220px;
+        min-width: 0;
     }
 
-    .search svg {
+    .search__icon {
         position: absolute;
         left: 14px;
         top: 50%;
         transform: translateY(-50%);
-        color: var(--text-muted);
+        color: var(--text-faint);
         pointer-events: none;
+        transition: color .2s ease;
     }
 
     .search__input {
         width: 100%;
-        padding: 13px 44px 13px 42px;
-        font: inherit;
-        font-size: .92rem;
+        padding: 12px 78px 12px 42px;
+        font-size: .9rem;
+        font-weight: 500;
         color: var(--text);
         background: var(--surface-2);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         outline: none;
-        transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+        transition:
+            border-color .2s ease,
+            box-shadow .2s ease,
+            background-color .2s ease;
     }
 
-    .search__input::placeholder { color: var(--text-muted); }
+    .search__input::placeholder { color: var(--text-faint); font-weight: 400; }
 
     .search__input:focus {
         border-color: var(--primary);
         background: var(--surface);
-        box-shadow: 0 0 0 4px var(--primary-soft);
+        box-shadow: var(--shadow-focus);
     }
+
+    .search:focus-within .search__icon { color: var(--primary); }
+
+    .search__kbd {
+        position: absolute;
+        right: 38px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        padding: 2px 7px;
+        font-size: .68rem;
+        font-weight: 600;
+        color: var(--text-faint);
+        background: var(--surface-3);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        pointer-events: none;
+        transition: opacity .18s ease;
+    }
+
+    .search__input:focus ~ .search__kbd,
+    .search__input:not(:placeholder-shown) ~ .search__kbd { opacity: 0; }
 
     .search__clear {
         position: absolute;
@@ -320,87 +559,155 @@
         transform: translateY(-50%);
         display: none;
         place-items: center;
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         padding: 0;
         border: none;
         border-radius: 50%;
         cursor: pointer;
         color: var(--text-muted);
         background: transparent;
-        transition: background-color .2s ease, color .2s ease;
+        transition: background-color .18s ease, color .18s ease;
     }
 
     .search__clear:hover { background: var(--surface-3); color: var(--text); }
     .search__clear.is-visible { display: grid; }
 
-    /* ---------- Játékosok ---------- */
+    /* Rendezés gomb */
+    .sort-btn {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 15px;
+        font-size: .84rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text-2);
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+            border-color .2s ease,
+            background-color .2s ease,
+            color .2s ease,
+            transform .2s var(--ease);
+    }
+
+    .sort-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: var(--surface);
+    }
+
+    .sort-btn:active { transform: scale(.97); }
+
+    .sort-btn.is-active {
+        color: var(--primary);
+        border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+        background: var(--primary-soft);
+    }
+
+    .sort-btn svg { transition: transform .3s var(--ease); }
+
+    .sort-btn.is-active svg { transform: rotate(180deg); }
+
+    /* ============================================================
+       JÁTÉKOSOK
+       ============================================================ */
     .players {
         list-style: none;
         margin: 0;
         padding: 0;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
         gap: 10px;
     }
 
     .player {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 12px;
+        padding: 13px;
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         background: var(--surface-2);
-        transition: transform .2s ease, box-shadow .2s ease,
-                    border-color .2s ease, background-color .2s ease;
-        animation: fadeIn .3s ease both;
+        overflow: hidden;
+        transition:
+            transform .26s var(--ease),
+            box-shadow .26s var(--ease),
+            border-color .26s ease,
+            background-color .26s ease;
+        animation: cardIn .38s var(--ease) both;
+    }
+
+    .player::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(220px 90px at var(--mx, 50%) 0%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 70%);
+        opacity: 0;
+        transition: opacity .3s ease;
+        pointer-events: none;
     }
 
     .player:hover {
         transform: translateY(-3px);
         background: var(--surface);
-        border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
-        box-shadow: var(--shadow-hover);
+        border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+        box-shadow: var(--shadow-sm);
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(6px); }
-        to   { opacity: 1; transform: translateY(0); }
+    .player:hover::after { opacity: 1; }
+
+    @keyframes cardIn {
+        from { opacity: 0; transform: translateY(8px) scale(.98); }
+        to   { opacity: 1; transform: none; }
     }
 
     .player__avatar {
-        flex: none;
         position: relative;
+        flex: none;
         display: grid;
         place-items: center;
         width: 46px;
         height: 46px;
-        border-radius: 50%;
-        font-size: .82rem;
-        font-weight: 700;
-        letter-spacing: .02em;
+        border-radius: 14px;
+        font-size: .8rem;
+        font-weight: 750;
+        letter-spacing: .01em;
         color: #fff;
-        background: linear-gradient(135deg, var(--primary-2), var(--primary));
-        box-shadow: inset 0 0 0 2px rgba(255,255,255,.18);
+        background: var(--avatar-bg, linear-gradient(135deg, var(--primary-3), var(--primary)));
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, .28),
+            0 6px 14px -6px color-mix(in srgb, var(--avatar-shadow, var(--primary)) 70%, transparent);
         overflow: hidden;
+        transition: transform .26s var(--ease);
     }
+
+    .player:hover .player__avatar { transform: scale(1.05); }
 
     .player__avatar img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
     }
 
-    .player__body { min-width: 0; }
+    .player__body {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
 
     .player__name {
         margin: 0;
-        font-size: .9rem;
-        font-weight: 600;
+        font-size: .875rem;
+        font-weight: 650;
+        letter-spacing: -0.015em;
         line-height: 1.25;
-        letter-spacing: -0.01em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -408,12 +715,13 @@
 
     .player__status {
         margin: 3px 0 0;
-        font-size: .72rem;
-        font-weight: 500;
-        color: var(--text-muted);
         display: flex;
         align-items: center;
         gap: 5px;
+        font-size: .7rem;
+        font-weight: 500;
+        color: var(--text-faint);
+        letter-spacing: .01em;
     }
 
     .player__status::before {
@@ -421,27 +729,39 @@
         width: 5px;
         height: 5px;
         border-radius: 50%;
-        background: var(--neutral);
+        background: currentColor;
+        opacity: .7;
     }
 
     /* Üres állapot */
     .empty {
         display: none;
-        padding: 26px 16px;
+        padding: 34px 16px;
         text-align: center;
         color: var(--text-muted);
-        font-size: .88rem;
+        font-size: .875rem;
+        border: 1px dashed var(--border-strong);
+        border-radius: var(--radius-md);
+        background: var(--surface-2);
     }
 
-    .empty.is-visible { display: block; }
+    .empty.is-visible { display: block; animation: cardIn .3s var(--ease) both; }
 
     .empty svg {
-        display: block;
-        margin: 0 auto 10px;
-        opacity: .5;
+        margin: 0 auto 12px;
+        color: var(--text-faint);
     }
 
-    /* ---------- Elérhetőségek ---------- */
+    .empty strong {
+        display: block;
+        color: var(--text);
+        font-weight: 650;
+        margin-bottom: 4px;
+    }
+
+    /* ============================================================
+       ELÉRHETŐSÉGEK
+       ============================================================ */
     .contacts {
         display: grid;
         gap: 10px;
@@ -450,122 +770,184 @@
     .contact {
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 14px 16px;
+        gap: 15px;
+        padding: 15px 18px;
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         background: var(--surface-2);
         text-decoration: none;
         color: inherit;
-        transition: transform .2s ease, box-shadow .2s ease,
-                    border-color .2s ease, background-color .2s ease;
+        transition:
+            transform .26s var(--ease),
+            box-shadow .26s var(--ease),
+            border-color .26s ease,
+            background-color .26s ease;
     }
 
     .contact:hover {
         transform: translateY(-2px);
         background: var(--surface);
-        border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
-        box-shadow: var(--shadow-hover);
+        border-color: color-mix(in srgb, var(--primary) 32%, var(--border));
+        box-shadow: var(--shadow-sm);
     }
 
     .contact__icon {
         flex: none;
         display: grid;
         place-items: center;
-        width: 40px;
-        height: 40px;
-        border-radius: var(--radius-sm);
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
         color: var(--primary);
         background: var(--primary-soft);
-        border: 1px solid color-mix(in srgb, var(--primary) 22%, transparent);
+        border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+        transition: transform .26s var(--ease);
     }
 
-    .contact__body { min-width: 0; }
+    .contact:hover .contact__icon { transform: scale(1.06); }
+
+    .contact__body { min-width: 0; flex: 1 1 auto; }
 
     .contact__label {
         margin: 0;
-        font-size: .72rem;
-        font-weight: 600;
+        font-size: .68rem;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: .06em;
+        letter-spacing: .1em;
         color: var(--text-muted);
     }
 
     .contact__value {
-        margin: 2px 0 0;
-        font-size: .92rem;
-        font-weight: 600;
+        margin: 3px 0 0;
+        font-size: .9rem;
+        font-weight: 650;
+        letter-spacing: -0.01em;
         color: var(--primary);
         word-break: break-all;
     }
 
     .contact__arrow {
-        margin-left: auto;
         flex: none;
-        color: var(--text-muted);
-        transition: transform .2s ease;
+        color: var(--text-faint);
+        transition: transform .26s var(--ease), color .26s ease;
     }
 
-    .contact:hover .contact__arrow { transform: translateX(3px); }
+    .contact:hover .contact__arrow {
+        transform: translateX(4px);
+        color: var(--primary);
+    }
 
-    /* ---------- Lábléc ---------- */
-    .panel__footer {
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 15px 26px;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 16px 32px;
         border-top: 1px solid var(--border);
         background: var(--surface-2);
         color: var(--text-muted);
-        font-size: .78rem;
+        font-size: .75rem;
+        flex-wrap: wrap;
     }
 
-    .panel__footer svg { flex: none; opacity: .8; }
-    .panel__footer p { margin: 0; }
+    .footer__left {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
 
-    /* ---------- Reszponzív ---------- */
-    @media (max-width: 620px) {
-        body { padding: 14px 12px 32px; }
+    .footer__left svg { flex: none; opacity: .8; }
+    .footer__left p { margin: 0; }
 
-        .panel { border-radius: 16px; }
+    .footer__version {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 9px;
+        font-size: .68rem;
+        font-weight: 600;
+        letter-spacing: .02em;
+        color: var(--text-muted);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-full);
+    }
 
-        .panel__header { padding: 20px 18px; gap: 13px; }
-        .brand { width: 42px; height: 42px; }
+    .footer__version::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--success);
+        box-shadow: 0 0 0 2px var(--success-soft);
+    }
 
-        .section { padding: 18px 16px; }
+    /* ============================================================
+       RESZPONZÍV
+       ============================================================ */
+    @media (max-width: 640px) {
+        body { padding: 14px 12px 40px; }
+
+        .panel { border-radius: 18px; }
+
+        .hero { padding: 22px 18px 20px; }
+        .logo { width: 46px; height: 46px; border-radius: 13px; font-size: 1rem; }
+
+        .stats { margin-top: 18px; gap: 8px; }
+        .stat { flex: 1 1 calc(50% - 4px); padding: 10px 12px; gap: 9px; }
+        .stat__icon { width: 30px; height: 30px; }
+
+        .section { padding: 20px 18px; }
 
         .event {
             grid-template-columns: auto 1fr;
-            row-gap: 10px;
-            padding: 14px;
+            row-gap: 12px;
+            padding: 14px 15px;
+            gap: 13px;
         }
         .badge { grid-column: 2; justify-self: start; }
+        .event__icon { width: 38px; height: 38px; }
 
-        .players { grid-template-columns: 1fr 1fr; }
+        .players { grid-template-columns: 1fr 1fr; gap: 8px; }
         .player { padding: 11px; gap: 10px; }
-        .player__avatar { width: 40px; height: 40px; font-size: .74rem; }
-        .player__name { font-size: .84rem; }
+        .player__avatar { width: 40px; height: 40px; border-radius: 12px; font-size: .72rem; }
+        .player__name { font-size: .8rem; }
+        .player__status { font-size: .66rem; }
 
-        .panel__footer { padding: 13px 18px; }
+        .footer { padding: 14px 18px; justify-content: center; text-align: center; }
     }
 
     @media (max-width: 380px) {
         .players { grid-template-columns: 1fr; }
         .player__name { white-space: normal; }
+        .sort-btn span { display: none; }
+        .search__kbd { display: none; }
     }
 
-    /* ---------- Akadálymentesség ---------- */
+    /* ============================================================
+       ACCESSIBILITY
+       ============================================================ */
     @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after {
             animation-duration: .001ms !important;
             animation-iteration-count: 1 !important;
             transition-duration: .001ms !important;
+            scroll-behavior: auto !important;
         }
-        .event:hover, .player:hover, .contact:hover { transform: none; }
+        .event:hover, .player:hover, .contact:hover, .stat:hover { transform: none; }
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+        border-radius: 6px;
     }
 
     .visually-hidden {
-        position: absolute;
+        position: absolute !important;
         width: 1px; height: 1px;
         margin: -1px; padding: 0;
         overflow: hidden;
@@ -573,40 +955,94 @@
         white-space: nowrap;
         border: 0;
     }
+
+    /* ============================================================
+       PRINT
+       ============================================================ */
+    @media print {
+        body { background: #fff; padding: 0; }
+        .panel { box-shadow: none; border: none; max-width: 100%; }
+        .sort-btn, .search__kbd, .search__clear { display: none !important; }
+    }
 </style>
 </head>
 <body>
 
-<main class="panel" aria-labelledby="panel-title">
+<main class="panel" aria-labelledby="hero-title">
 
-    <!-- ============ FEJLÉC ============ -->
-    <header class="panel__header">
-        <span class="brand" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4.5" width="18" height="16" rx="3"/>
-                <path d="M8 2.5v4M16 2.5v4M3 9.5h18"/>
-                <path d="M8 13.5h2M14 13.5h2M8 17h2M14 17h2"/>
-            </svg>
-        </span>
-        <div class="panel__heading">
-            <h1 class="panel__title" id="panel-title">NVCSE Csapat</h1>
-            <p class="panel__subtitle">Események · Játékosok · Elérhetőségek</p>
+    <!-- ==================== HERO ==================== -->
+    <header class="hero">
+        <div class="hero__top">
+            <span class="logo" aria-hidden="true">N</span>
+            <div class="hero__heading">
+                <p class="hero__eyebrow">NVCSE · Hivatalos</p>
+                <h1 class="hero__title" id="hero-title">Csapatportál</h1>
+                <p class="hero__subtitle">
+                    Események, játékoskereső és elérhetőségek – egy letisztult, gyors felületen.
+                </p>
+            </div>
+        </div>
+
+        <div class="stats" role="list" aria-label="Gyors összegzés">
+            <div class="stat" role="listitem">
+                <span class="stat__icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="8" r="3.2"/>
+                        <path d="M3.5 20a5.5 5.5 0 0 1 11 0"/>
+                        <path d="M16 5.2a3.2 3.2 0 0 1 0 6.1M17.5 20a5.5 5.5 0 0 0-2-4.3"/>
+                    </svg>
+                </span>
+                <div>
+                    <div class="stat__value" id="stat-players">11</div>
+                    <div class="stat__label">Játékos</div>
+                </div>
+            </div>
+
+            <div class="stat" role="listitem">
+                <span class="stat__icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4.5" width="18" height="16" rx="3"/>
+                        <path d="M8 2.5v4M16 2.5v4M3 9.5h18"/>
+                    </svg>
+                </span>
+                <div>
+                    <div class="stat__value" id="stat-events">3</div>
+                    <div class="stat__label">Esemény</div>
+                </div>
+            </div>
+
+            <div class="stat" role="listitem">
+                <span class="stat__icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2.5" y="4.5" width="19" height="15" rx="3"/>
+                        <path d="m3 7 8.1 5.4a1.6 1.6 0 0 0 1.8 0L21 7"/>
+                    </svg>
+                </span>
+                <div>
+                    <div class="stat__value">2</div>
+                    <div class="stat__label">Elérhetőség</div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- ============ ESEMÉNYEK ============ -->
+    <!-- ==================== ESEMÉNYEK ==================== -->
     <section class="section" aria-labelledby="events-title">
         <div class="section__head">
             <h2 class="section__title" id="events-title">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="3" y="4.5" width="18" height="16" rx="3"/>
-                    <path d="M8 2.5v4M16 2.5v4M3 9.5h18"/>
-                </svg>
+                <span class="icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4.5" width="18" height="16" rx="3"/>
+                        <path d="M8 2.5v4M16 2.5v4M3 9.5h18"/>
+                    </svg>
+                </span>
                 Események
             </h2>
-            <span class="section__hint">3 esemény</span>
+            <span class="section__hint">3 bejegyzés</span>
         </div>
 
         <ul class="events">
@@ -658,64 +1094,83 @@
         </ul>
     </section>
 
-    <!-- ============ JÁTÉKOSKERESŐ ============ -->
+    <!-- ==================== JÁTÉKOSOK ==================== -->
     <section class="section" aria-labelledby="players-title">
         <div class="section__head">
             <h2 class="section__title" id="players-title">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <circle cx="9" cy="8" r="3.2"/>
-                    <path d="M3.5 20a5.5 5.5 0 0 1 11 0"/>
-                    <path d="M16 5.2a3.2 3.2 0 0 1 0 6.1M17.5 20a5.5 5.5 0 0 0-2-4.3"/>
-                </svg>
+                <span class="icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="8" r="3.2"/>
+                        <path d="M3.5 20a5.5 5.5 0 0 1 11 0"/>
+                        <path d="M16 5.2a3.2 3.2 0 0 1 0 6.1M17.5 20a5.5 5.5 0 0 0-2-4.3"/>
+                    </svg>
+                </span>
                 Játékosok
             </h2>
-            <span class="section__hint" id="player-count">5 játékos</span>
+            <span class="section__hint" id="player-count">11 játékos</span>
         </div>
 
-        <div class="search">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="7"/>
-                <path d="m20 20-3.2-3.2"/>
-            </svg>
-            <label class="visually-hidden" for="player-search">Játékos keresése név alapján</label>
-            <input
-                type="search"
-                id="player-search"
-                class="search__input"
-                placeholder="Keresés név alapján…"
-                autocomplete="off"
-                spellcheck="false">
-            <button type="button" class="search__clear" id="search-clear" aria-label="Keresés törlése">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 6 6 18M6 6l12 12"/>
+        <div class="toolbar">
+            <div class="search">
+                <svg class="search__icon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-3.2-3.2"/>
                 </svg>
+                <label class="visually-hidden" for="player-search">Játékos keresése név alapján</label>
+                <input
+                    type="search"
+                    id="player-search"
+                    class="search__input"
+                    placeholder="Keresés név alapján…"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-describedby="player-count">
+                <kbd class="search__kbd" aria-hidden="true">/</kbd>
+                <button type="button" class="search__clear" id="search-clear" aria-label="Keresés törlése">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <button type="button" class="sort-btn" id="sort-btn"
+                    aria-pressed="false" aria-label="Rendezés: névsor szerint">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/>
+                </svg>
+                <span>A–Z</span>
             </button>
         </div>
 
         <ul class="players" id="players-list" role="list"></ul>
 
         <div class="empty" id="players-empty" role="status" aria-live="polite">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="11" cy="11" r="7"/>
                 <path d="m20 20-3.2-3.2"/>
             </svg>
-            Nincs találat a keresett névre.
+            <strong>Nincs találat</strong>
+            Próbálj másik nevet vagy rövidebb keresőkifejezést.
         </div>
     </section>
 
-    <!-- ============ ELÉRHETŐSÉGEK ============ -->
+    <!-- ==================== ELÉRHETŐSÉGEK ==================== -->
     <section class="section" aria-labelledby="contacts-title">
         <div class="section__head">
             <h2 class="section__title" id="contacts-title">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="2.5" y="4.5" width="19" height="15" rx="3"/>
-                    <path d="m3 7 8.1 5.4a1.6 1.6 0 0 0 1.8 0L21 7"/>
-                </svg>
+                <span class="icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2.5" y="4.5" width="19" height="15" rx="3"/>
+                        <path d="m3 7 8.1 5.4a1.6 1.6 0 0 0 1.8 0L21 7"/>
+                    </svg>
+                </span>
                 Elérhetőségek
             </h2>
         </div>
@@ -762,14 +1217,17 @@
         </div>
     </section>
 
-    <!-- ============ LÁBLÉC ============ -->
-    <footer class="panel__footer">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 11v5M12 7.75h.01"/>
-        </svg>
-        <p>A feltüntetett időpontok és állapotok folyamatosan frissülnek.</p>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer__left">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 11v5M12 7.75h.01"/>
+            </svg>
+            <p>Az időpontok és állapotok folyamatosan frissülnek.</p>
+        </div>
+        <span class="footer__version">v2.0 · Élő</span>
     </footer>
 
 </main>
@@ -778,24 +1236,44 @@
 (function () {
     "use strict";
 
-    /* ====== Adatok ====== */
+    /* ==========================================================
+       ADATOK
+       ========================================================== */
     var PLAYERS = [
         { name: "Kovács Viktor",     image: null },
         { name: "Tényi Zsombor",     image: null },
         { name: "Zemniczky Zsombor", image: null },
         { name: "Végh Máté",         image: null },
-        { name: "Tóth Máté",         image: null }
+        { name: "Tóth Máté",         image: null },
+        { name: "Takács Ádám",       image: null },
+        { name: "Kókai Zsombor",     image: null },
+        { name: "Molnár Bence",      image: null },
+        { name: "Gulyás Gergely",    image: null },
+        { name: "Vörös Zalán",       image: null },
+        { name: "Mázás Bendegúz",    image: null }
     ];
 
-    var listEl     = document.getElementById("players-list");
-    var emptyEl    = document.getElementById("players-empty");
-    var inputEl    = document.getElementById("player-search");
-    var clearBtn   = document.getElementById("search-clear");
-    var countEl    = document.getElementById("player-count");
+    /* ==========================================================
+       ELEMEK
+       ========================================================== */
+    var listEl    = document.getElementById("players-list");
+    var emptyEl   = document.getElementById("players-empty");
+    var inputEl   = document.getElementById("player-search");
+    var clearBtn  = document.getElementById("search-clear");
+    var countEl   = document.getElementById("player-count");
+    var sortBtn   = document.getElementById("sort-btn");
+    var statPlayersEl = document.getElementById("stat-players");
 
-    /* ====== Segédfüggvények ====== */
+    var state = {
+        query: "",
+        sorted: false
+    };
 
-    // Kezdőbetűk a placeholder avatarhoz (max 2)
+    /* ==========================================================
+       SEGÉDFÜGGVÉNYEK
+       ========================================================== */
+
+    // Monogram a névből (max 2 kezdőbetű)
     function getInitials(fullName) {
         return fullName
             .trim()
@@ -816,44 +1294,90 @@
             .trim();
     }
 
-    // HTML-escape a biztonságos beillesztéshez
+    // HTML-escape
     function escapeHtml(str) {
         return String(str).replace(/[&<>"']/g, function (ch) {
             return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
         });
     }
 
-    /* ====== Játékoskártya létrehozása ====== */
+    // Determinisztikus avatar-szín a névből
+    var AVATAR_PALETTE = [
+        { bg: "linear-gradient(135deg, #60a5fa, #2563eb)", shadow: "#2563eb" },
+        { bg: "linear-gradient(135deg, #a78bfa, #7c3aed)", shadow: "#7c3aed" },
+        { bg: "linear-gradient(135deg, #34d399, #059669)", shadow: "#059669" },
+        { bg: "linear-gradient(135deg, #fbbf24, #d97706)", shadow: "#d97706" },
+        { bg: "linear-gradient(135deg, #f472b6, #db2777)", shadow: "#db2777" },
+        { bg: "linear-gradient(135deg, #22d3ee, #0891b2)", shadow: "#0891b2" },
+        { bg: "linear-gradient(135deg, #fb923c, #ea580c)", shadow: "#ea580c" },
+        { bg: "linear-gradient(135deg, #818cf8, #4f46e5)", shadow: "#4f46e5" }
+    ];
+
+    function pickAvatar(name) {
+        var hash = 0;
+        var key = normalize(name);
+        for (var i = 0; i < key.length; i++) {
+            hash = (hash * 31 + key.charCodeAt(i)) % 100000;
+        }
+        return AVATAR_PALETTE[hash % AVATAR_PALETTE.length];
+    }
+
+    /* ==========================================================
+       KÁRTYA LÉTREHOZÁSA
+       ========================================================== */
     function createPlayerCard(player) {
         var li = document.createElement("li");
         li.className = "player";
 
         var initials = escapeHtml(getInitials(player.name));
         var name     = escapeHtml(player.name);
+        var theme    = pickAvatar(player.name);
 
-        // Ha van kép, <img>-et rakunk be, különben monogram jelenik meg
+        li.style.setProperty("--avatar-bg", theme.bg);
+        li.style.setProperty("--avatar-shadow", theme.shadow);
+
         var avatarInner = player.image
-            ? '<img src="' + escapeHtml(player.image) + '" alt="' + name + '" loading="lazy">'
+            ? '<img src="' + escapeHtml(player.image) + '" alt="" loading="lazy" decoding="async">'
             : initials;
 
         li.innerHTML =
-            '<span class="player__avatar" aria-hidden="' + (player.image ? "false" : "true") + '">' +
-                avatarInner +
-            '</span>' +
+            '<span class="player__avatar" aria-hidden="true">' + avatarInner + '</span>' +
             '<span class="player__body">' +
                 '<p class="player__name" title="' + name + '">' + name + '</p>' +
                 '<p class="player__status">Kép hamarosan</p>' +
             '</span>';
 
+        // Finom fénykövetés az egér pozíciója alapján
+        li.addEventListener("pointermove", function (e) {
+            var rect = li.getBoundingClientRect();
+            var x = ((e.clientX - rect.left) / rect.width) * 100;
+            li.style.setProperty("--mx", x + "%");
+        });
+
         return li;
     }
 
-    /* ====== Lista kirajzolása ====== */
-    function renderPlayers(filter) {
-        var query = normalize(filter || "");
-        var visible = PLAYERS.filter(function (p) {
-            return normalize(p.name).indexOf(query) !== -1;
+    /* ==========================================================
+       RENDER
+       ========================================================== */
+    function getVisiblePlayers() {
+        var q = normalize(state.query);
+
+        var filtered = PLAYERS.filter(function (p) {
+            return normalize(p.name).indexOf(q) !== -1;
         });
+
+        if (state.sorted) {
+            filtered.sort(function (a, b) {
+                return a.name.localeCompare(b.name, "hu", { sensitivity: "base" });
+            });
+        }
+
+        return filtered;
+    }
+
+    function render() {
+        var visible = getVisiblePlayers();
 
         listEl.innerHTML = "";
 
@@ -865,38 +1389,39 @@
 
         emptyEl.classList.remove("is-visible");
 
-        // DokumentFragment a hatékony DOM-művelethez
         var frag = document.createDocumentFragment();
         visible.forEach(function (p, i) {
             var card = createPlayerCard(p);
-            card.style.animationDelay = (i * 35) + "ms";
+            card.style.animationDelay = Math.min(i * 30, 300) + "ms";
             frag.appendChild(card);
         });
         listEl.appendChild(frag);
 
-        countEl.textContent = visible.length === PLAYERS.length
+        countEl.textContent = (visible.length === PLAYERS.length)
             ? PLAYERS.length + " játékos"
             : visible.length + " / " + PLAYERS.length + " találat";
     }
 
-    /* ====== Kereső események ====== */
-    function onSearchInput() {
-        var value = inputEl.value;
-        clearBtn.classList.toggle("is-visible", value.length > 0);
-        renderPlayers(value);
+    /* ==========================================================
+       KERESÉS
+       ========================================================== */
+    function onSearch() {
+        state.query = inputEl.value;
+        clearBtn.classList.toggle("is-visible", state.query.length > 0);
+        render();
     }
 
-    inputEl.addEventListener("input", onSearchInput);
-    inputEl.addEventListener("search", onSearchInput); // natív törlés (mobil)
+    inputEl.addEventListener("input", onSearch);
+    inputEl.addEventListener("search", onSearch);
 
     clearBtn.addEventListener("click", function () {
         inputEl.value = "";
+        state.query = "";
         clearBtn.classList.remove("is-visible");
-        renderPlayers("");
+        render();
         inputEl.focus();
     });
 
-    // Escape lenyomására törlés
     inputEl.addEventListener("keydown", function (e) {
         if (e.key === "Escape" && inputEl.value) {
             e.preventDefault();
@@ -904,8 +1429,48 @@
         }
     });
 
-    /* ====== Indítás ====== */
-    renderPlayers("");
+    // "/" gyorsgomb a kereséshez
+    document.addEventListener("keydown", function (e) {
+        var tag = (e.target && e.target.tagName) || "";
+        var typing = tag === "INPUT" || tag === "TEXTAREA" || (e.target && e.target.isContentEditable);
+
+        if (e.key === "/" && !typing) {
+            e.preventDefault();
+            inputEl.focus();
+            inputEl.select();
+        }
+    });
+
+    /* ==========================================================
+       RENDEZÉS
+       ========================================================== */
+    sortBtn.addEventListener("click", function () {
+        state.sorted = !state.sorted;
+
+        sortBtn.classList.toggle("is-active", state.sorted);
+        sortBtn.setAttribute("aria-pressed", String(state.sorted));
+        sortBtn.setAttribute(
+            "aria-label",
+            "Rendezés: " + (state.sorted ? "névsor szerint (aktív)" : "alapértelmezett sorrend")
+        );
+
+        var label = sortBtn.querySelector("span");
+        if (label) label.textContent = state.sorted ? "Eredeti" : "A–Z";
+
+        render();
+    });
+
+    /* ==========================================================
+       STATISZTIKA FRISSÍTÉS
+       ========================================================== */
+    if (statPlayersEl) {
+        statPlayersEl.textContent = String(PLAYERS.length);
+    }
+
+    /* ==========================================================
+       INDÍTÁS
+       ========================================================== */
+    render();
 })();
 </script>
 
